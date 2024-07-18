@@ -1,25 +1,28 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import ProductDisplayPage from "./pages/ProductDisplayPage";
+import SocialMediaPage from "./pages/SocialMediaPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const isAuthenticated = () => {
+  return true;
+};
+
+const App = () => (
+  <Router>
+    <Routes>
+      <Route path="/" element={<Navigate to="/products" />} />
+      <Route path="/products" element={<ProductDisplayPage />} />
+      <Route
+        path="/social"
+        element={isAuthenticated() ? <SocialMediaPage /> : <Navigate to="/" />}
+      />
+    </Routes>
+  </Router>
+);
 
 export default App;
